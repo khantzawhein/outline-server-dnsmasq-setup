@@ -13,9 +13,17 @@ curl -o /etc/hosts https://raw.githubusercontent.com/khantzawhein/outline-server
 echo "Downloading and replacing dnsmasq.conf..."
 curl -o /etc/dnsmasq.conf https://raw.githubusercontent.com/khantzawhein/outline-server-dnsmasq-setup/refs/heads/main/dnsmasq.conf
 
-# Download and replace the resolv.conf file
+# Download the resolv.conf
 echo "Downloading and replacing resolv.conf..."
-curl -o /etc/resolv.conf https://raw.githubusercontent.com/khantzawhein/outline-server-dnsmasq-setup/refs/heads/main/resolv.conf
+curl -o /etc/resolv.conf.new https://raw.githubusercontent.com/khantzawhein/outline-server-dnsmasq-setup/refs/heads/main/resolv.conf
+
+# Unlink the existing resolv.conf
+echo "Unlinking /etc/resolv.conf..."
+sudo unlink /etc/resolv.conf
+
+# Rename the new resolv.conf
+echo "Renaming /etc/resolv.conf.new to /etc/resolv.conf..."
+sudo mv /etc/resolv.conf.new /etc/resolv.conf
 
 # Stop and disable systemd-resolved
 echo "Stopping and disabling systemd-resolved..."
