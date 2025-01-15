@@ -25,6 +25,9 @@ sudo unlink /etc/resolv.conf
 echo "Renaming /etc/resolv.conf.new to /etc/resolv.conf..."
 sudo mv /etc/resolv.conf.new /etc/resolv.conf
 
+echo "Adding host name to /etc/hosts..."
+sudo echo -e "\n127.0.1.1 $(hostname)" | sudo tee -a /etc/hosts
+
 # Stop and disable systemd-resolved
 echo "Stopping and disabling systemd-resolved..."
 sudo systemctl stop systemd-resolved
